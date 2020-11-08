@@ -14,24 +14,29 @@
       <span>Join</span>
     </div>
 
-    <div id="create-btn" , class="choose-card transition-scale">
+    <div id="create-btn" class="choose-card transition-scale">
       <span>Create</span>
     </div>
   </section>
   <section id="join-section" style="display: none;">
     <form id="join-form" class="choose-card">
-      <label for="room-id"></label>
-      <input type="text" name="room-id" id="room-id" placeholder="Identifier">
+      <input type="text" name="join-input" id="join-input" placeholder="Identifier">
       <input type="submit" class="transition-scale" value="Join!">
       <span id="back-btn">Go Back</span>
     </form>
   </section>
   <section id="chat-room" style="display: none;">
-    <header class="chat-header"></header>
-    <main>
-      <div class="chat-body"></div>
-      <div class="chat-input"></div>
-    </main>
+    <div class="chat">
+      <header class="chat-header">
+        <h2 id="room-id"></h2>
+      </header>
+      <div class="chat-body">
+
+      </div>
+      <div class="chat-input">
+        <input type="text" placeholder="Write a message...">
+      </div>
+    </div>
   </section>
 </body>
 

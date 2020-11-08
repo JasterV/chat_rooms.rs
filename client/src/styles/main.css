@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
+@import './choose.css';
+@import './chat.css';
+
 html, body {
     height: 100vh;
     overflow: hidden;
@@ -8,39 +11,14 @@ html, body {
     background-color: #00E5E5;
 }
 
+h1, h2, h3 {
+    margin: 0;
+}
+
 section {
     height: 100%;
     width: 100%;
     display: flex;
-}
-
-#choose-room {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.choose-card {
-    color: white;
-    font-size: 3rem;
-    font-weight: 500;
-    margin: 2rem;
-    height: 300px;
-    width: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
-    background-color: #FF8E9C;
-}
-
-#join-section {
-    justify-content: center;
-    align-items: center;
-}
-
-#join-form {
-    flex-direction: column;
 }
 
 .transition-scale {
@@ -52,45 +30,6 @@ section {
     transform: scale(1.07);
 }
 
-#join-form [type="text"] {
-    border: none;
-    border-radius: 20px;
-    margin: 1rem 0;
-    font-size: 1.3rem;
-    padding: .5rem 1rem;
-    color: gray;
-}
-
-#back-btn {
-    font-size: 1rem;
-    text-decoration: underline;
-}
-
-#back-btn:hover {
-    font-weight: bold;
-    cursor: pointer;
-}
-
-
 input:focus {
     outline: none;
-}
-
-#join-form [type="submit"] {
-    border: none;
-    margin: 1rem;
-    padding: .5rem 1rem;
-    font-size: 2.5rem;
-    font-weight: 600;
-    color: white;
-    background-color: #00CBCC;
-    border-radius: 15px;
-}
-
-@media (min-width: 700px) {
-    #choose-room {
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-    }
 }

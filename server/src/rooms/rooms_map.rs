@@ -43,6 +43,7 @@ impl RoomsMap {
             Some(controller) => {
                 match controller.shutdown_room() {
                     Ok(_) => {
+                        println!("Room {} closed!!", &id);
                         self.0.remove_entry(&id);
                         Ok(())
                     },

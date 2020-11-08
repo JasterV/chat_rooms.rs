@@ -1,0 +1,125 @@
+#chat-room {
+    justify-content: center;
+    align-items: center;
+}
+
+.chat {
+    background-color: white;
+    height: 90%;
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
+}
+
+.chat-header {
+    width: 100%;
+    border: none;
+    height: 70px;
+    display: flex;
+    align-items: center;
+}
+
+.chat-header h2 {
+    color: #FF8E9C;
+    text-align: center;
+    margin: auto;
+}
+
+.chat-body {
+    flex: 1;
+    overflow: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-input {
+    height: 80px;
+    display: flex;
+}
+
+.chat-input input {
+    flex: 1;
+    border-radius: 10px;
+    width: 100%;
+    border: none;
+    background-color: #eb7f91;
+    color: white;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.msg-bubble {
+    margin: 1.3rem;
+    border-radius: 15px;
+    background: #24e2e2;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    font-weight: bold;
+    position: relative;
+    min-width: 200px;
+    max-width: 300px;
+}
+
+.bubble-right {
+    margin-right: auto;
+}
+
+.bubble-left {
+    margin-left: auto;
+    background-color:  #FF8E9C;
+}
+
+.bubble-left:before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 15px solid #FF8E9C;
+    border-right: 15px solid transparent;
+    border-top: 15px solid #FF8E9C;
+    border-bottom: 15px solid transparent;
+    right: -16px;
+    top: 0px;
+}
+
+.bubble-right:before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 15px solid transparent;
+    border-right: 15px solid #24e2e2;
+    border-top: 15px solid #24e2e2;
+    border-bottom: 15px solid transparent;
+    left: -16px;
+    top: 0px;
+}
+
+.chat-input ::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+    opacity: 1;
+    font-size: 1rem;
+    font-weight: bold;
+    /* Firefox */
+}
+
+.chat-input :-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.chat-input ::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+}

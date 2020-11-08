@@ -7,7 +7,7 @@ extern crate uuid;
 
 use lib::rooms::rooms_map::RoomsMap;
 use rocket::{
-    http::{RawStr, Status},
+    http::Status,
     response::status::Custom,
     State,
 };
@@ -23,6 +23,8 @@ use std::{
     time::Duration,
 };
 
+use lib::cors::options;
+
 #[derive(Serialize)]
 struct RoomInfo {
     addr: SocketAddr,
@@ -30,11 +32,11 @@ struct RoomInfo {
 }
 
 #[get("/rooms/<id>")]
-fn get_addr(id: &RawStr, rooms: State<Arc<Mutex<RoomsMap>>>) -> Result<String, Custom<String>> {
+fn get_addr(id: String, rooms: State<Arc<Mutex<RoomsMap>>>) -> Result<Json<RoomInfo>, Custom<String>> {
     let arc_clone = _get_state_arc(&rooms);
     let rooms = arc_clone.lock().unwrap();
-    match rooms.get_addr(id) {
-        Ok(addr) => Ok(addr.to_string()),
+    match rooms.get_addr(&id) {
+        Ok(addr) => Ok(Json(RoomInfo{id, addr})),
         Err(_) => Err(Custom(
             Status::ImATeapot,
             "Can't get the address".to_string(),
@@ -50,6 +52,7 @@ fn create_room(state: State<Arc<Mutex<RoomsMap>>>) -> Result<Json<RoomInfo>, Cus
     match rooms.start_room(id.clone()) {
         Ok(addr) => {
             _close_timeout(id.clone(), &state);
+            println!("Room with {} created!", &id);
             Ok(Json(RoomInfo { addr, id }))
         }
         Err(message) => Err(Custom(Status::Locked, message)),
@@ -85,5 +88,6 @@ fn main() {
     rocket::ignite()
         .mount("/", routes![get_addr, close_room, create_room])
         .manage(Arc::new(Mutex::new(RoomsMap::new())))
+        .attach(options())
         .launch();
 }

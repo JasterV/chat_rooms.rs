@@ -1,31 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat</title>
-    <script src="main.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat</title>
+  <script src="main.js"></script>
 </head>
+
 <body>
-    <section class="init-room">
-        <form class="join-form">
-            <label for="room-id"></label>
-            <input type="text" name="room-id" id="room-id">
-            <input type="submit" value="Join!">
-        </form>
+  <section id="choose-room">
+    <div id="join-btn" class="choose-card transition-scale">
+      <span>Join</span>
+    </div>
 
-        <div id="create-btn">
-            <span>Create</span>
-        </div>
-    </section>
-    <section style="display: none;">
-        <div class="chat">
-            <div class="chat-header"></div>
-            <div class="chat-body">
-
-            </div>
-            <div class="chat-input"></div>
-        </div>
-    </section>
+    <div id="create-btn" , class="choose-card transition-scale">
+      <span>Create</span>
+    </div>
+  </section>
+  <section id="join-section" style="display: none;">
+    <form id="join-form" class="choose-card">
+      <label for="room-id"></label>
+      <input type="text" name="room-id" id="room-id" placeholder="Identifier">
+      <input type="submit" class="transition-scale" value="Join!">
+      <span id="back-btn">Go Back</span>
+    </form>
+  </section>
+  <section id="chat-room" style="display: none;">
+    <header class="chat-header"></header>
+    <main>
+      <div class="chat-body"></div>
+      <div class="chat-input"></div>
+    </main>
+  </section>
 </body>
+
 </html>

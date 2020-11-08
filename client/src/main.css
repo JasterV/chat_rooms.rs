@@ -1,12 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
 html, body {
     height: 100vh;
     overflow: hidden;
     margin: 0;
     padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #00E5E5;
 }
 
 section {
     height: 100%;
     width: 100%;
     display: flex;
+}
+
+#choose-room {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.choose-card {
+    color: white;
+    font-size: 3rem;
+    font-weight: 500;
+    margin: 2rem;
+    height: 300px;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background-color: #FF8E9C;
+}
+
+#join-section {
+    justify-content: center;
+    align-items: center;
+}
+
+#join-form {
+    flex-direction: column;
+}
+
+.transition-scale {
+    transition: all 200ms;
+}
+
+.transition-scale:hover {
+    cursor: pointer;
+    transform: scale(1.07);
+}
+
+#join-form [type="text"] {
+    border: none;
+    border-radius: 20px;
+    margin: 1rem 0;
+    font-size: 1.3rem;
+    padding: .5rem 1rem;
+    color: gray;
+}
+
+#back-btn {
+    font-size: 1rem;
+    text-decoration: underline;
+}
+
+#back-btn:hover {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+input:focus {
+    outline: none;
+}
+
+#join-form [type="submit"] {
+    border: none;
+    margin: 1rem;
+    padding: .5rem 1rem;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: white;
+    background-color: #00CBCC;
+    border-radius: 15px;
+}
+
+@media (min-width: 700px) {
+    #choose-room {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
 }

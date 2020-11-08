@@ -8,22 +8,15 @@
 </head>
 <body>
     <section class="init-room">
-        <form>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Room Id</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1">Password</label>
-              <input type="password" class="form-control" id="exampleInputPassword1">
-            </div>
-            <div class="form-group form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1">
-              <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
+        <form class="join-form">
+            <label for="room-id"></label>
+            <input type="text" name="room-id" id="room-id">
+            <input type="submit" value="Join!">
+        </form>
+
+        <div id="create-btn">
+            <span>Create</span>
+        </div>
     </section>
     <section style="display: none;">
         <div class="chat">

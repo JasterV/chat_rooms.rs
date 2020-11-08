@@ -1,5 +1,4 @@
-require('bootstrap');
-require('bootstrap/dist/css/bootstrap.css')
+require('main.css');
 const net = require('net');
 
 // const client = new net.Socket();

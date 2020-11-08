@@ -8,6 +8,8 @@
 
 > A web app that allows you to create or join rooms to chat with your friends :)
 
+## Currently in development, a refactor on the client needed
+
 ## Install
 
 ```sh

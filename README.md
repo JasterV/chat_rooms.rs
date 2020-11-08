@@ -10,16 +10,42 @@
 
 ### Currently under development, come back later ^^
 
-## Install
+## Global dependencies
+
++ [node](https://nodejs.dev/)
+
++ [Parceljs](https://parceljs.org/)
+
++ [Rust](https://www.rust-lang.org/tools/install)
+
++ [Rust nightly](https://www.oreilly.com/library/view/rust-programming-by/9781788390637/e07dc768-de29-482e-804b-0274b4bef418.xhtml)
+
+## Client
+
+### Install dependencies
 
 ```sh
-Client: npm install, Server: cargo build
+npm install
 ```
 
-## Usage
+### Run
 
 ```sh
-Client: npm start, Server: cargo run
+npm start
+```
+
+## Server
+
+### Build
+
+```sh
+cargo build
+```
+
+### Run
+
+```sh
+cargo run
 ```
 
 ## Author

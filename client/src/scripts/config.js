@@ -1,0 +1,1 @@
+export const ROOMS_API = "http://localhost:8000";

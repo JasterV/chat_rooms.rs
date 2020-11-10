@@ -7,6 +7,7 @@ extern crate uuid;
 
 use lib::rooms::rooms_map::RoomsMap;
 use rocket::{
+    Rocket,
     http::Status,
     response::status::Custom,
     State,
@@ -84,10 +85,13 @@ fn _close_timeout(id: String, state: &State<Arc<Mutex<RoomsMap>>>) {
     });
 }
 
-fn main() {
+fn rocket() -> Rocket {
     rocket::ignite()
-        .mount("/", routes![get_addr, close_room, create_room])
-        .manage(Arc::new(Mutex::new(RoomsMap::new())))
-        .attach(options())
-        .launch();
+    .mount("/", routes![get_addr, close_room, create_room])
+    .manage(Arc::new(Mutex::new(RoomsMap::new())))
+    .attach(options())
+}
+
+fn main() {
+    rocket().launch();
 }

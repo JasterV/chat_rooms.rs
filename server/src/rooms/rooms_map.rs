@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use std::io::{self, ErrorKind};
 use std::net::{SocketAddr};
-use super::room::{Room, RoomController};
+use super::room::{start_room, RoomController};
 
 pub struct RoomsMap(HashMap<String, RoomController>);
 
@@ -26,14 +26,13 @@ impl RoomsMap {
         } else if self.0.len() >= Self::MAX_ROOMS {
             Err(format!("Can't create more than {} rooms", Self::MAX_ROOMS))
         } else {
-            let room = Room::new();
-            match room.start() {
+            match start_room() {
                 Ok(controller) => {
                     let addr = controller.addr();
                     self.0.insert(id, controller);
                     Ok(addr)
                 }
-                Err(msg) => Err(msg),
+                Err(_) => Err(String::from("There was an error starting a room")),
             }
         }
     }

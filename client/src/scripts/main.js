@@ -11,8 +11,9 @@ $(() => {
         let id = $('#join-input').val().trim();
         if (id.length > 0) {
             try {
-                let info = await fetchRoomInfo(id);
-                openRoom(info);
+                let data = await fetchRoomInfo(id);
+                openSocket(data.addr);
+                $('#room-id').text(data.id);
                 $("#chat-room, #join-section").toggle();
             } catch (err) {
                 alert(err.message);
@@ -30,26 +31,15 @@ $(() => {
         }
     });
 
-    $('#join-btn').on('click', () => {
-        $("#choose-room, #join-section").toggle();
-    })
-
-    $("#back-btn").on('click', () => {
-        $("#choose-room, #join-section").toggle();
-    });
+    $('#join-btn, #back-btn').on('click', () => $("#choose-room, #join-section").toggle())
 
     $(".chat-input input").on('keyup', (e) => {
         let val = $(e.currentTarget).val().trim();
-        if (val.length > 0 && e.key == 'Enter') {
+        if (val.length > 0 && e.key == 'Enter')
             App.socket.send(val);
-        }
     })
 
-    function openRoom(data) {
-        $('#room-id').text(data.id);
-        openSocket(data.addr);
-    }
-
+    /** SOCKETS LOGIC */
     function openSocket(addr) {
         App.socket = new WebSocket(`ws://${addr}`);
 

@@ -20,6 +20,8 @@ use uuid::Uuid;
 use std::{
     net::SocketAddr,
     sync::{Arc, Mutex},
+    thread,
+    time::Duration,
 };
 
 use lib::cors::options;
@@ -61,6 +63,15 @@ fn _get_state_arc<T: Send + Sync>(state: &State<Arc<Mutex<T>>>) -> Arc<Mutex<T>>
     let arc = state.inner();
     let arc_clone = Arc::clone(arc);
     arc_clone
+}
+
+fn _close_timeout(id: String, state: &State<Arc<Mutex<RoomsMap>>>) {
+    let arc_clone = _get_state_arc(state);
+    thread::spawn(move || {
+        thread::sleep(Duration::from_secs(RoomsMap::ROOMS_TIMEOUT));
+        let mut rooms = arc_clone.lock().unwrap();
+        rooms.close_room(id).ok();
+    });
 }
 
 fn rocket() -> Rocket {

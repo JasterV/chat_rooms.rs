@@ -59,11 +59,12 @@ $(() => {
         App.socket.addEventListener("message", (e) => {
             let response = JSON.parse(e.data);
             let event = response.event;
-            
+
             if(event == 'open') {
                 App.userId = response.id;
             } else if (event == 'new_user') {
-                $('.chat-body').append(newUserText(response));
+                if(response.id != App.userId)
+                    $('.chat-body').append(newUserText(response));
             } else if (event == 'user_gone') {
                 $('.chat-body').append(userGoneText());
             } else if (event == 'message') {

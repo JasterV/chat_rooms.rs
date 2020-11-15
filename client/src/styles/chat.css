@@ -108,6 +108,15 @@
     top: 0px;
 }
 
+.info-msg {
+    text-align: center;
+    color: gray;
+    font-size: 1.1rem;
+    padding: .5rem 1rem;
+    position: relative;
+}
+
+
 .chat-input ::placeholder {
     /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: white;

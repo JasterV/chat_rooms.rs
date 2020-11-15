@@ -1,7 +1,7 @@
 import '../styles/main.css';
 import 'regenerator-runtime/runtime'
 import { fetchRoomInfo, createRoom } from './controller.js';
-import {leftBubble, rightBubble} from './templates';
+import {leftBubble, rightBubble, newUserText, userGoneText} from './templates';
 
 import $ from 'jquery';
 
@@ -21,7 +21,7 @@ $(() => {
         }
     })
 
-    $("#create-btn").on('click', async (e) => {
+    $("#create-btn").on('click', async () => {
         try {
             let data = await createRoom();
             openRoom(data);
@@ -47,20 +47,35 @@ $(() => {
         $("#join-section, #choose-room").hide();
     }
 
+    function closeRoom() {
+        $("#chat-room").hide();
+        $("#choose-room").show();
+    }
+
     /** SOCKETS LOGIC */
     function openSocket(addr) {
         App.socket = new WebSocket(`ws://${addr}`);
 
-        App.socket.addEventListener("message", (event) => {
-            let response = JSON.parse(event.data);
-            if(response.first) {
+        App.socket.addEventListener("message", (e) => {
+            let response = JSON.parse(e.data);
+            let event = response.event;
+            
+            if(event == 'open') {
                 App.userId = response.id;
-                return;
+            } else if (event == 'new_user') {
+                $('.chat-body').append(newUserText(response));
+            } else if (event == 'user_gone') {
+                $('.chat-body').append(userGoneText());
+            } else if (event == 'message') {
+                if(response.id == App.userId) $('.chat-body').append(rightBubble(response));
+                else $('.chat-body').append(leftBubble(response));
             }
-
-            if(response.id == App.userId) $('.chat-body').append(rightBubble(response));
-            else $('.chat-body').append(leftBubble(response));
         })
+
+        App.socket.addEventListener("close", () => {
+            alert("The room has been closed for innactivity");
+            closeRoom();
+        });
     }
 });
 

@@ -1,6 +1,8 @@
 import '../styles/main.css';
 import 'regenerator-runtime/runtime'
 import { fetchRoomInfo, createRoom } from './controller.js';
+import {leftBubble, rightBubble} from './templates';
+
 import $ from 'jquery';
 
 $(() => {
@@ -12,9 +14,7 @@ $(() => {
         if (id.length > 0) {
             try {
                 let data = await fetchRoomInfo(id);
-                openSocket(data.addr);
-                $('#room-id').text(data.id);
-                $("#chat-room, #join-section").toggle();
+                openRoom(data);
             } catch (err) {
                 alert(err.message);
             }
@@ -23,9 +23,8 @@ $(() => {
 
     $("#create-btn").on('click', async (e) => {
         try {
-            let info = await createRoom();
-            openRoom(info);
-            $("#chat-room, #choose-room").toggle();
+            let data = await createRoom();
+            openRoom(data);
         } catch (err) {
             alert(err.message);
         }
@@ -35,20 +34,32 @@ $(() => {
 
     $(".chat-input input").on('keyup', (e) => {
         let val = $(e.currentTarget).val().trim();
-        if (val.length > 0 && e.key == 'Enter')
+        if (val.length > 0 && e.key == 'Enter') {
+            $(e.currentTarget).val("");
             App.socket.send(val);
+        }
     })
+
+    function openRoom(data) {
+        openSocket(data.addr);
+        $('#room-id').text(data.id);
+        $("#chat-room").show();
+        $("#join-section, #choose-room").hide();
+    }
 
     /** SOCKETS LOGIC */
     function openSocket(addr) {
         App.socket = new WebSocket(`ws://${addr}`);
 
-        App.socket.addEventListener("open", () => {
-            console.log("Connected!");
-        });
-
         App.socket.addEventListener("message", (event) => {
-            $('.chat-body').append($(`<div class="left-bubble msg-bubble">${event.data}</div>`))
+            let response = JSON.parse(event.data);
+            if(response.first) {
+                App.userId = response.id;
+                return;
+            }
+
+            if(response.id == App.userId) $('.chat-body').append(rightBubble(response));
+            else $('.chat-body').append(leftBubble(response));
         })
     }
 });

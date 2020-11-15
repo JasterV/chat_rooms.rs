@@ -1,4 +1,4 @@
-import { ROOMS_API } from './config';
+const ROOMS_API = "http://localhost:8000";
 
 export async function createRoom() {
     let response = await fetch(ROOMS_API + '/rooms?create');

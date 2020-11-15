@@ -64,10 +64,17 @@
     position: relative;
     min-width: 200px;
     max-width: 300px;
+    font-size: 1.3rem;
+}
+
+.bubble-header {
+    color:  #ffffff;
+    padding-bottom: 1rem;
 }
 
 .bubble-right {
     margin-right: auto;
+    text-align: start;
 }
 
 .bubble-left {

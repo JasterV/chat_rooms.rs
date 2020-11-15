@@ -1,6 +1,6 @@
 import '../styles/main.css';
 import 'regenerator-runtime/runtime'
-import { fetchRoomInfo, createRoom } from 'controller';
+import { fetchRoomInfo, createRoom } from './controller.js';
 import $ from 'jquery';
 
 $(() => {

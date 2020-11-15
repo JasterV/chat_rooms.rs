@@ -8,6 +8,8 @@
 
 > A web app that allows you to create or join rooms to chat with your friends anonymously:)
 
+Rooms close their connection after 10 minutes. There can't be more than 10 rooms at a time (Just for memory safety reasons). This can be configured on the RoomsMap implementation. Have fun! :)
+
 ## Global dependencies
 
 + [node](https://nodejs.dev/)

@@ -6,9 +6,7 @@
   </a>
 </p>
 
-> A web app that allows you to create or join rooms to chat with your friends :)
-
-### Currently under development, come back later ^^
+> A web app that allows you to create or join rooms to chat with your friends anonymously:)
 
 ## Global dependencies
 

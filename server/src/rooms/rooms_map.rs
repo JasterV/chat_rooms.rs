@@ -7,7 +7,6 @@ pub struct RoomsMap(HashMap<String, RoomController>);
 
 impl RoomsMap {
     pub const MAX_ROOMS: usize = 10;
-    pub const ROOMS_TIMEOUT: u64 = 60 * 10; // timeout in seconds
 
     pub fn new() -> Self {
         RoomsMap(HashMap::new())
@@ -34,22 +33,6 @@ impl RoomsMap {
                 }
                 Err(_) => Err(String::from("There was an error starting a room")),
             }
-        }
-    }
-
-    pub fn close_room(&mut self, id: String) -> Result<(), String> {
-        match self.0.get(&id) {
-            Some(controller) => {
-                match controller.shutdown_room() {
-                    Ok(_) => {
-                        println!("Room {} closed!!", &id);
-                        self.0.remove_entry(&id);
-                        Ok(())
-                    },
-                    Err(_) => Err(String::from("Can't close the room"))
-                }
-            }
-            None => Err(String::from("The room doesnt exists")),
         }
     }
 }

@@ -20,8 +20,6 @@ use uuid::Uuid;
 use std::{
     net::SocketAddr,
     sync::{Arc, Mutex},
-    thread,
-    time::Duration,
 };
 
 use lib::cors::options;
@@ -52,21 +50,10 @@ fn create_room(state: State<Arc<Mutex<RoomsMap>>>) -> Result<Json<RoomInfo>, Cus
     let id = Uuid::new_v4().to_string();
     match rooms.start_room(id.clone()) {
         Ok(addr) => {
-            _close_timeout(id.clone(), &state);
             println!("Room with {} created!", &id);
             Ok(Json(RoomInfo { addr, id }))
         }
         Err(message) => Err(Custom(Status::Locked, message)),
-    }
-}
-
-#[delete("/rooms/<id>")]
-fn close_room(id: String, state: State<Arc<Mutex<RoomsMap>>>) -> Result<String, Custom<String>> {
-    let arc_clone = _get_state_arc(&state);
-    let mut rooms = arc_clone.lock().unwrap();
-    match rooms.close_room(id.clone()) {
-        Ok(_) => Ok(id),
-        Err(message) => Err(Custom(Status::Gone, message)),
     }
 }
 
@@ -76,18 +63,9 @@ fn _get_state_arc<T: Send + Sync>(state: &State<Arc<Mutex<T>>>) -> Arc<Mutex<T>>
     arc_clone
 }
 
-fn _close_timeout(id: String, state: &State<Arc<Mutex<RoomsMap>>>) {
-    let arc_clone = _get_state_arc(state);
-    thread::spawn(move || {
-        thread::sleep(Duration::from_secs(RoomsMap::ROOMS_TIMEOUT));
-        let mut rooms = arc_clone.lock().unwrap();
-        rooms.close_room(id).ok();
-    });
-}
-
 fn rocket() -> Rocket {
     rocket::ignite()
-    .mount("/", routes![get_addr, close_room, create_room])
+    .mount("/", routes![get_addr, create_room])
     .manage(Arc::new(Mutex::new(RoomsMap::new())))
     .attach(options())
 }
